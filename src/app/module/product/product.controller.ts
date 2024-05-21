@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const { product: productData } = req.body;
+    const productData = req.body;
 
     const result = await ProductServices.createProductDB(productData);
 
@@ -40,7 +40,6 @@ const getProductSingleData = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
 
-    console.log(productId);
     const result = await ProductServices.getProductSingleValue(productId);
 
     res.status(200).json({
@@ -53,8 +52,42 @@ const getProductSingleData = async (req: Request, res: Response) => {
   }
 };
 
+const updateSingleData = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+
+    const result = await ProductServices.updateProductSingleValue(productId);
+
+    res.status(200).json({
+      success: true,
+      message: "Product updated successfully!",
+      data: result,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const deleteSingleData = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+
+    const result = await ProductServices.deleteProductSingleValue(productId);
+
+    res.status(200).json({
+      success: true,
+      message: "Product deleted successfully!",
+      data: result,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const ProductControllers = {
   createProduct,
   getAllProducts,
   getProductSingleData,
+  updateSingleData,
+  deleteSingleData,
 };
