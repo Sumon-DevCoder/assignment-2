@@ -11,7 +11,6 @@ app.use(cors());
 // application route
 app.use("/api/products", ProdcutRoute);
 app.use("/api/orders", OrderRoute);
-app.use("/api/orders?email=level2@programming-hero.com", OrderRoute);
 
 // route
 app.get("/", (req: Request, res: Response) => {

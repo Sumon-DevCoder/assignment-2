@@ -14,7 +14,6 @@ app.use((0, cors_1.default)());
 // application route
 app.use("/api/products", product_route_1.ProdcutRoute);
 app.use("/api/orders", order_route_1.OrderRoute);
-app.use("/api/orders?email=level2@programming-hero.com", order_route_1.OrderRoute);
 // route
 app.get("/", (req, res) => {
     res.send("server is running...");

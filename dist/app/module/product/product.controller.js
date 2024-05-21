@@ -8,13 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductControllers = void 0;
 const product_services_1 = require("./product.services");
+const product_validation_1 = __importDefault(require("./product.validation"));
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const productData = req.body;
-        const result = yield product_services_1.ProductServices.createProductDB(productData);
+        //  creating schema a validation using Joi
+        const { error, value } = product_validation_1.default.validate(productData);
+        const result = yield product_services_1.ProductServices.createProductDB(value);
+        if (error) {
+            res.status(500).json({
+                success: false,
+                message: "something went wrong",
+                error: error.details,
+            });
+        }
         res.status(200).json({
             success: true,
             message: "Product created successfully!",
