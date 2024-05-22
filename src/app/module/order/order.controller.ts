@@ -9,8 +9,6 @@ const createOrder = async (req: Request, res: Response) => {
     //  creating schema a validation using Joi
     const { error, value } = orderItemSchemaJoi.validate(orderData);
 
-    console.log("errrrr", error);
-
     if (error) {
       return res.status(500).json({
         success: false,

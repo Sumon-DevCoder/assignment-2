@@ -90,7 +90,16 @@ const updateSingleData = (req, res) => __awaiter(void 0, void 0, void 0, functio
     try {
         const { productId } = req.params;
         const updatedData = req.body;
-        const result = yield product_services_1.ProductServices.updateProductSingleValue(productId, updatedData);
+        //  creating schema a validation using Joi
+        const { error, value } = product_validation_1.default.validate(updatedData);
+        const result = yield product_services_1.ProductServices.updateProductSingleValue(productId, value);
+        if (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message || "something went wrong",
+                error: error.details,
+            });
+        }
         res.status(200).json({
             success: true,
             message: "Product updated successfully!",

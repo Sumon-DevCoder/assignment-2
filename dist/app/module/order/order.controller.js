@@ -20,7 +20,6 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const orderData = req.body;
         //  creating schema a validation using Joi
         const { error, value } = order_validation_1.default.validate(orderData);
-        console.log("errrrr", error);
         if (error) {
             return res.status(500).json({
                 success: false,

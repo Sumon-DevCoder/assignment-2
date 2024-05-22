@@ -89,10 +89,21 @@ const updateSingleData = async (req: Request, res: Response) => {
     const { productId } = req.params;
     const updatedData = req.body;
 
+    //  creating schema a validation using Joi
+    const { error, value } = productSchemaJoi.validate(updatedData);
+
     const result = await ProductServices.updateProductSingleValue(
       productId,
-      updatedData
+      value
     );
+
+    if (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message || "something went wrong",
+        error: error.details,
+      });
+    }
 
     res.status(200).json({
       success: true,
