@@ -33,10 +33,20 @@ const deleteProductSingleValue = (_id) => __awaiter(void 0, void 0, void 0, func
     const result = yield product_model_1.ProductModel.findByIdAndDelete({ _id });
     return result;
 });
+const searchProductValue = (searchTerm) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.ProductModel.find({
+        $or: [
+            { name: { $regex: searchTerm, $options: "i" } },
+            { description: { $regex: searchTerm, $options: "i" } },
+        ],
+    });
+    return result;
+});
 exports.ProductServices = {
     createProductDB,
     getAllProductDB,
     getProductSingleValue,
     updateProductSingleValue,
     deleteProductSingleValue,
+    searchProductValue,
 };

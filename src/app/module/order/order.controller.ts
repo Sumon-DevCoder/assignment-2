@@ -49,7 +49,7 @@ const getAllOrders = async (req: Request, res: Response) => {
 
 const getOrdersByUserEmail = async (req: Request, res: Response) => {
   try {
-    const userEmail = req.params.email;
+    const userEmail = req.query.email as string;
 
     console.log("dddd", userEmail);
 

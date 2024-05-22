@@ -101,11 +101,16 @@ const deleteSingleData = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 const searchProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { productId } = req.params;
-        const result = yield product_services_1.ProductServices.deleteProductSingleValue(productId);
+        const { searchTerm } = req.query;
+        if (!searchTerm) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Search term is required" });
+        }
+        const result = yield product_services_1.ProductServices.searchProductValue(searchTerm);
         res.status(200).json({
             success: true,
-            message: "Product deleted successfully!",
+            message: `Products matching search term '${searchTerm}' fetched successfully!`,
             data: result,
         });
     }

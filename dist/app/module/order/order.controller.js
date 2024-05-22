@@ -58,7 +58,7 @@ const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 const getOrdersByUserEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userEmail = req.params.email;
+        const userEmail = req.query.email;
         console.log("dddd", userEmail);
         const result = yield order_services_1.OrderServices.getOrdersByUserEmailDB(userEmail);
         console.log(result);
