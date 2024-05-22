@@ -73,7 +73,8 @@ const getProductSingleData = (req, res) => __awaiter(void 0, void 0, void 0, fun
 const updateSingleData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { productId } = req.params;
-        const result = yield product_services_1.ProductServices.updateProductSingleValue(productId);
+        const updatedData = req.body;
+        const result = yield product_services_1.ProductServices.updateProductSingleValue(productId, updatedData);
         res.status(200).json({
             success: true,
             message: "Product updated successfully!",
@@ -98,10 +99,25 @@ const deleteSingleData = (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.log(err);
     }
 });
+const searchProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { productId } = req.params;
+        const result = yield product_services_1.ProductServices.deleteProductSingleValue(productId);
+        res.status(200).json({
+            success: true,
+            message: "Product deleted successfully!",
+            data: result,
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
 exports.ProductControllers = {
     createProduct,
     getAllProducts,
     getProductSingleData,
     updateSingleData,
     deleteSingleData,
+    searchProduct,
 };

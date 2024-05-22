@@ -16,8 +16,10 @@ const getProductSingleValue = async (_id: string) => {
   return result;
 };
 
-const updateProductSingleValue = async (_id: string) => {
-  const result = await ProductModel.findByIdAndUpdate({ _id });
+const updateProductSingleValue = async (_id: string, updatedData: Product) => {
+  const result = await ProductModel.findByIdAndUpdate(_id, updatedData, {
+    new: true,
+  });
   return result;
 };
 

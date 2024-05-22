@@ -23,8 +23,10 @@ const getProductSingleValue = (_id) => __awaiter(void 0, void 0, void 0, functio
     const result = yield product_model_1.ProductModel.findOne({ _id });
     return result;
 });
-const updateProductSingleValue = (_id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield product_model_1.ProductModel.findByIdAndUpdate({ _id });
+const updateProductSingleValue = (_id, updatedData) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.ProductModel.findByIdAndUpdate(_id, updatedData, {
+        new: true,
+    });
     return result;
 });
 const deleteProductSingleValue = (_id) => __awaiter(void 0, void 0, void 0, function* () {

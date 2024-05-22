@@ -7,6 +7,6 @@ router.get("/", OrderControllers.getAllOrders);
 
 router.post("/", OrderControllers.createOrder);
 
-router.get("", OrderControllers.getOrdersByUserEmail);
+router.get("/:email", OrderControllers.getOrdersByUserEmail);
 
 export const OrderRoute = router;
