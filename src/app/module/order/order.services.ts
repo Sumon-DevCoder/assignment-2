@@ -8,11 +8,17 @@ const createOrderDB = async (order: OrderItem) => {
 
 const getAllOrderFromDB = async () => {
   const result = await OrderModel.find();
+  if (result.length === 0) {
+    throw Error("Order not found");
+  }
   return result;
 };
 
 const getOrdersByUserEmailDB = async (userEmail: string) => {
   const result = await OrderModel.find({ email: userEmail });
+  if (result.length === 0) {
+    throw Error("Order not found");
+  }
   return result;
 };
 

@@ -45,35 +45,32 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield order_services_1.OrderServices.getAllOrderFromDB();
-        res.status(200).json({
-            success: true,
-            message: "Orders fetched successfully!",
-            data: result,
-        });
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
-const getOrdersByUserEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
         const userEmail = req.query.email;
-        console.log("dddd", userEmail);
-        const result = yield order_services_1.OrderServices.getOrdersByUserEmailDB(userEmail);
-        console.log(result);
-        res.status(200).json({
-            success: true,
-            message: "Orders fetched successfully for user email!",
-            data: result,
-        });
+        if (userEmail) {
+            const result = yield order_services_1.OrderServices.getOrdersByUserEmailDB(userEmail);
+            res.status(200).json({
+                success: true,
+                message: "Orders fetched successfully!",
+                data: result,
+            });
+        }
+        else {
+            const result = yield order_services_1.OrderServices.getAllOrderFromDB();
+            res.status(200).json({
+                success: true,
+                message: "Orders fetched successfully!",
+                data: result,
+            });
+        }
     }
     catch (err) {
-        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: err.message || "Something went wrong!",
+        });
     }
 });
 exports.OrderControllers = {
     createOrder,
     getAllOrders,
-    getOrdersByUserEmail,
 };

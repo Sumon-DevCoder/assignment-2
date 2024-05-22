@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const orderItemSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
     trim: true,
-    match: [/.+\@.+\..+/, "Please fill a valid email address"],
+    match: [/.+@.+\..+/, "Please fill a valid email address"],
   },
   productId: {
     type: mongoose.Schema.Types.ObjectId,

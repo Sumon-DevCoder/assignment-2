@@ -45,12 +45,28 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield product_services_1.ProductServices.getAllProductDB();
-        res.status(200).json({
-            success: true,
-            message: "Products fetched successfully!",
-            data: result,
-        });
+        const { searchTerm } = req.query;
+        if (searchTerm) {
+            const result = yield product_services_1.ProductServices.searchProductValue(searchTerm);
+            res.status(200).json({
+                success: true,
+                message: `Products matching search term '${searchTerm}' fetched successfully!`,
+                data: result,
+            });
+            if (!searchTerm) {
+                return res
+                    .status(400)
+                    .json({ success: false, message: "Search term is required" });
+            }
+        }
+        else {
+            const result = yield product_services_1.ProductServices.getAllProductDB();
+            res.status(200).json({
+                success: true,
+                message: "Products fetched successfully!",
+                data: result,
+            });
+        }
     }
     catch (err) {
         console.log(err);
@@ -99,30 +115,10 @@ const deleteSingleData = (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.log(err);
     }
 });
-const searchProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { searchTerm } = req.query;
-        if (!searchTerm) {
-            return res
-                .status(400)
-                .json({ success: false, message: "Search term is required" });
-        }
-        const result = yield product_services_1.ProductServices.searchProductValue(searchTerm);
-        res.status(200).json({
-            success: true,
-            message: `Products matching search term '${searchTerm}' fetched successfully!`,
-            data: result,
-        });
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
 exports.ProductControllers = {
     createProduct,
     getAllProducts,
     getProductSingleData,
     updateSingleData,
     deleteSingleData,
-    searchProduct,
 };

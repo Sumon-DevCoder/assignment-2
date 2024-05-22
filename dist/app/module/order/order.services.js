@@ -17,10 +17,16 @@ const createOrderDB = (order) => __awaiter(void 0, void 0, void 0, function* () 
 });
 const getAllOrderFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield order_model_1.OrderModel.find();
+    if (result.length === 0) {
+        throw Error("Order not found");
+    }
     return result;
 });
 const getOrdersByUserEmailDB = (userEmail) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield order_model_1.OrderModel.find({ email: userEmail });
+    if (result.length === 0) {
+        throw Error("Order not found");
+    }
     return result;
 });
 exports.OrderServices = {
