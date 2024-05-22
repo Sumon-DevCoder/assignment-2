@@ -12,7 +12,7 @@ const orderItemSchemaJoi = joi_1.default.object({
     }),
     productId: joi_1.default.string()
         .trim()
-        .pattern(/^[0-9a-fA-F]{24}$/)
+        // .pattern(/^[0-9a-fA-F]{24}$/)
         .required()
         .messages({
         "any.required": "Product ID is required",

@@ -20,14 +20,15 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const orderData = req.body;
         //  creating schema a validation using Joi
         const { error, value } = order_validation_1.default.validate(orderData);
-        const result = yield order_services_1.OrderServices.createOrderDB(value);
+        console.log("errrrr", error);
         if (error) {
-            res.status(500).json({
+            return res.status(500).json({
                 success: false,
                 message: "something went wrong",
                 error: error.details,
             });
         }
+        const result = yield order_services_1.OrderServices.createOrderDB(value);
         res.status(200).json({
             success: true,
             message: "Order created successfully!",
@@ -38,7 +39,7 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         console.log(err);
         res.status(500).json({
             success: false,
-            message: "something went wrong",
+            message: err.message || "something went wrong",
             error: err,
         });
     }

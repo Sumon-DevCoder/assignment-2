@@ -10,9 +10,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderServices = void 0;
+const product_model_1 = require("../product/product.model");
 const order_model_1 = require("./order.model");
 const createOrderDB = (order) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield order_model_1.OrderModel.create(order);
+    const product = yield product_model_1.ProductModel.findById(order.productId);
+    console.log("my pp", product);
+    if (!product) {
+        throw Error("no product found");
+    }
+    if (order.quantity > product.inventory.quantity) {
+        throw Error("Insufficient quantity available in inventory");
+    }
+    product.inventory.quantity -= order.quantity; // update inventory quantity
+    product.inventory.inStock = product.inventory.quantity > 0; // update stock status
+    yield product.save(); // save product data in update quantity
+    const result = yield order_model_1.OrderModel.create(order); // create order
     return result;
 });
 const getAllOrderFromDB = () => __awaiter(void 0, void 0, void 0, function* () {

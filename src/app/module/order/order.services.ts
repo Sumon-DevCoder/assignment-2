@@ -1,8 +1,25 @@
+import { ProductModel } from "../product/product.model";
 import { OrderItem } from "./order.interface";
 import { OrderModel } from "./order.model";
 
 const createOrderDB = async (order: OrderItem) => {
-  const result = await OrderModel.create(order);
+  const product = await ProductModel.findById(order.productId);
+
+  console.log("my pp", product);
+
+  if (!product) {
+    throw Error("no product found");
+  }
+
+  if (order.quantity > product.inventory.quantity) {
+    throw Error("Insufficient quantity available in inventory");
+  }
+
+  product.inventory.quantity -= order.quantity; // update inventory quantity
+  product.inventory.inStock = product.inventory.quantity > 0; // update stock status
+
+  await product.save(); // save product data in update quantity
+  const result = await OrderModel.create(order); // create order
   return result;
 };
 

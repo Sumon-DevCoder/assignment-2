@@ -8,26 +8,29 @@ const createOrder = async (req: Request, res: Response) => {
 
     //  creating schema a validation using Joi
     const { error, value } = orderItemSchemaJoi.validate(orderData);
-    const result = await OrderServices.createOrderDB(value);
+
+    console.log("errrrr", error);
 
     if (error) {
-      res.status(500).json({
+      return res.status(500).json({
         success: false,
         message: "something went wrong",
         error: error.details,
       });
     }
 
+    const result = await OrderServices.createOrderDB(value);
+
     res.status(200).json({
       success: true,
       message: "Order created successfully!",
       data: result,
     });
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     res.status(500).json({
       success: false,
-      message: "something went wrong",
+      message: err.message || "something went wrong",
       error: err,
     });
   }
