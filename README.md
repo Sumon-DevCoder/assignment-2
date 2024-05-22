@@ -30,7 +30,7 @@ To install the application, follow these steps:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/MyExpressTypeScriptApp.git
+   git clone https://github.com/SumonRahman24/assignment-2.git
    ```
 2. Navigate to the project directory:
    ```sh
@@ -60,7 +60,7 @@ To run the application locally, follow these steps:
    ```
 3. Start the application:
    ```sh
-   npm start
+   npm run dev
    ```
    _or_ if you use yarn:
    ```sh
@@ -68,7 +68,7 @@ To run the application locally, follow these steps:
    ```
 4. Open your web browser and go to:
    ```
-   http://localhost:3000
+   http://localhost:5000
    ```
 
 ## Configuration
@@ -77,9 +77,9 @@ The application requires a configuration file to connect to the MongoDB database
 
 1. Create a `.env` file in the root directory.
 2. Add the following environment variables in the `.env` file:
+
    ```env
-   PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/mydatabase
+   PORT=5000
+   DATABASE_URL=mongodb+srv://admin:xuhy4FcYXQndzyQZ@cluster0.asyrthd.mongodb.net/productDB?retryWrites=true&w=majority&appName=Cluster0
+
    ```
-
-
