@@ -80,6 +80,4 @@ The application requires a configuration file to connect to the MongoDB database
 
    ```env
    PORT=5000
-   DATABASE_URL=mongodb+srv://admin:xuhy4FcYXQndzyQZ@cluster0.asyrthd.mongodb.net/productDB?retryWrites=true&w=majority&appName=Cluster0
-
    ```
